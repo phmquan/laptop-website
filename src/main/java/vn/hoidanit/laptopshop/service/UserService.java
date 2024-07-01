@@ -18,7 +18,9 @@ public class UserService {
     public String handleHello(){
         return "Hello from service";
     }
-
+    public User GetUserByID(Long id){
+        return this.userRepository.findByid(id);
+    }
     public List<User> GetAllUser(){
         return this.userRepository.findAll();
     }
@@ -28,4 +30,6 @@ public class UserService {
     public User handleSaveUser(User user){
         return this.userRepository.save(user);
     }
+   
+    
 }
