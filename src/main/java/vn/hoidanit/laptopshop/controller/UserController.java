@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.service.UserService;
@@ -32,14 +33,20 @@ public class UserController {
     }
     @RequestMapping("/admin/user")
     public String getUser(Model model){
+        List<User> users=this.userService.GetAllUser();
+        model.addAttribute("users", users);
+        return "admin/user/showUser";
+    }
+    @RequestMapping("/admin/user/create")
+    public String getUserCreate(Model model){
         model.addAttribute("newUser",new User());
         return "admin/user/create";
     }
-    @RequestMapping("/admin/user/create")
-    public String getUserCreate(Model model, @ModelAttribute("newUser") User hoiDanIt){
-        System.out.println("Run here" + hoiDanIt);
-        this.userService.handleSaveUser(hoiDanIt);
-        return "hello";
+    @RequestMapping(value="/admin/user/create",method=RequestMethod.POST)
+    public String getUserCreateSuccess(Model model, @ModelAttribute("newUser") User user){
+        this.userService.handleSaveUser(user);
+        
+        return "redirect:"+"/admin/user";
     }
 }
 
