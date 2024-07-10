@@ -12,7 +12,10 @@
 </head>
 
 <body>
-    <h1>Nice to be there</h1>
+    <jsp:include page="../admin/layout/header.jsp" />
+    <jsp:include page="../admin/layout/sidebar.jsp" />
+    <h1>こんいちわ</h1>
+    <jsp:include page="../admin/layout/footer.jsp" />
 </body>
 
 </html>
