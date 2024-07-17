@@ -29,6 +29,7 @@ public class User {
 
     @OneToMany(mappedBy="user")
     private List<Order> order;
+    
     private String avatar;
     public long getId() {
         return id;
@@ -71,6 +72,22 @@ public class User {
     public String toString() {
         return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullName=" + fullName
                 + ", address=" + address + ", phone=" + phone + "]";
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public List<Order> getOrder() {
+        return order;
+    }
+
+    public void setOrder(List<Order> order) {
+        this.order = order;
     }
     
 }

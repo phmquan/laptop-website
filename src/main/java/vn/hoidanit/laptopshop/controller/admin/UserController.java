@@ -1,4 +1,4 @@
-package vn.hoidanit.laptopshop.controller;
+package vn.hoidanit.laptopshop.controller.admin;
 
 import java.util.List;
 
@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.service.UploadService;
 import vn.hoidanit.laptopshop.service.UserService;
 
 
@@ -21,12 +23,14 @@ import vn.hoidanit.laptopshop.service.UserService;
 public class UserController {
 
     private final UserService userService;
-    
+    private final UploadService uploadService;
 
-    public UserController(UserService userService
-    ) {
+    public UserController(UploadService uploadService, UserService userService) {
+        this.uploadService = uploadService;
         this.userService = userService;
     }
+
+   
     @RequestMapping("/")
     public String getHomepage(Model model, User user){
         List<User> arrUser=this.userService.GetAllUserByEmail("20520713@gm.uit.edu.vn");
@@ -40,14 +44,14 @@ public class UserController {
     public String getUser(Model model){
         List<User> users=this.userService.GetAllUser();
         model.addAttribute("users", users);
-        return "admin/user/showUser";
+        return "admin/user/show";
     }
     @RequestMapping("/admin/user/{id}")
     public String getUserByID(Model model,@PathVariable("id") Long id){
         System.out.println("User id: "+id);
         User user=this.userService.GetUserByID(id);
         model.addAttribute("user", user);
-        return "admin/user/userDetail";
+        return "admin/user/detail";
     }
 
 
@@ -55,7 +59,7 @@ public class UserController {
     public String updateUserByID(Model model,@PathVariable("id") Long id){
         User user=this.userService.GetUserByID(id);
         model.addAttribute("updateUser", user);
-        return "admin/user/updateUser";
+        return "admin/user/update";
     }
     @PostMapping("/admin/user/update") 
     public String getUserUpdateSuccess(Model model, @ModelAttribute("updateUser") User user){
@@ -71,14 +75,15 @@ public class UserController {
         return "redirect:"+"/admin/user";
     }
 
-    @RequestMapping("/admin/user/create")
+    @GetMapping("/admin/user/create")
     public String getUserCreate(Model model){
         model.addAttribute("newUser",new User());
         return "admin/user/create";
     }
-    @RequestMapping(value="/admin/user/create",method=RequestMethod.POST)
-    public String getUserCreateSuccess(Model model, @ModelAttribute("newUser") User user){
-        this.userService.handleSaveUser(user);
+    @PostMapping("/admin/user/create")
+    public String getUserCreateSuccess(Model model, @ModelAttribute("newUser") User user,@RequestParam("hoidanitFile") MultipartFile file){
+        String avatarFileName=this.uploadService.handleSaveUploadFile(file,"avatar");
+        // this.userService.handleSaveUser(user);
         
         return "redirect:"+"/admin/user";
     }
@@ -87,7 +92,7 @@ public class UserController {
     public String getUserDelete(Model model,@PathVariable("id") Long id){
         model.addAttribute("user",new User());
         model.addAttribute("id",id);
-        return "/admin/user/deleteUser";
+        return "/admin/user/delete";
     }
     @PostMapping("/admin/user/delete")
     public String handleUserDelete(Model model,@ModelAttribute("user") User user){
