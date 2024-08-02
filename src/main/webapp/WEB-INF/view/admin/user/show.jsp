@@ -48,6 +48,7 @@
                                                         <th scope="col">Address</th>
                                                         <th scope="col">Phone</th>
                                                         <th scope="col">Email</th>
+                                                        <th scope="col">Role</th>
                                                         <th scope="col">Action</th>
                                                     </tr>
                                                 </thead>
@@ -59,6 +60,7 @@
                                                             <td>${user.address}</td>
                                                             <td>${user.phone}</td>
                                                             <td>${user.email}</td>
+                                                            <td>${user.role.name}</td>
                                                             <td>
 
                                                                 <a href="/admin/user/${user.id}"

@@ -89,5 +89,13 @@ public class User {
     public void setOrder(List<Order> order) {
         this.order = order;
     }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
     
 }

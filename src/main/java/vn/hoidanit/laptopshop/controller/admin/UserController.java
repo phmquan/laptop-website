@@ -2,6 +2,7 @@ package vn.hoidanit.laptopshop.controller.admin;
 
 import java.util.List;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,11 +25,16 @@ public class UserController {
 
     private final UserService userService;
     private final UploadService uploadService;
-
-    public UserController(UploadService uploadService, UserService userService) {
+    private final PasswordEncoder passwordEncoder;
+    
+    public UserController(PasswordEncoder passwordEncoder, UploadService uploadService, UserService userService) {
+        this.passwordEncoder = passwordEncoder;
         this.uploadService = uploadService;
         this.userService = userService;
     }
+    
+
+    
 
    
     @RequestMapping("/")
@@ -62,14 +68,15 @@ public class UserController {
         return "admin/user/update";
     }
     @PostMapping("/admin/user/update") 
-    public String getUserUpdateSuccess(Model model, @ModelAttribute("updateUser") User user){
-        System.out.println(user);
+    public String getUserUpdateSuccess(Model model, @ModelAttribute("updateUser") User user, @RequestParam("hoidanitFile") MultipartFile file){
         User currentUser=this.userService.GetUserByID(user.getId());
-        System.out.println("User: "+currentUser);
+        String avatarFileName=this.uploadService.handleSaveUploadFile(file,"avatar");
         if(currentUser!=null){
             currentUser.setAddress(user.getAddress());
             currentUser.setFullName(user.getFullName());
             currentUser.setPhone(user.getPhone());
+            currentUser.setRole(this.userService.getRoleByName(user.getRole().getName()));
+            currentUser.setAvatar(avatarFileName);
             this.userService.handleSaveUser(currentUser);
         }
         return "redirect:"+"/admin/user";
@@ -83,8 +90,11 @@ public class UserController {
     @PostMapping("/admin/user/create")
     public String getUserCreateSuccess(Model model, @ModelAttribute("newUser") User user,@RequestParam("hoidanitFile") MultipartFile file){
         String avatarFileName=this.uploadService.handleSaveUploadFile(file,"avatar");
-        // this.userService.handleSaveUser(user);
-        
+        String hashPassword=this.passwordEncoder.encode(user.getPassword());
+        user.setAvatar(avatarFileName);
+        user.setPassword(hashPassword);
+        user.setRole(this.userService.getRoleByName(user.getRole().getName()));
+        this.userService.handleSaveUser(user);
         return "redirect:"+"/admin/user";
     }
 

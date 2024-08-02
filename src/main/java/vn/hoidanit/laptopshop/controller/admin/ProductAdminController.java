@@ -5,9 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
-public class ProductController {
+public class ProductAdminController {
+    
+
     @GetMapping("/admin/product")
     public String getDashBoard(){
         return "/admin/product/show";
     }
+
 }

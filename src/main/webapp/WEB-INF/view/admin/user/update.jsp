@@ -9,9 +9,20 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
                 <meta name="author" content="Hỏi Dân IT" />
-                <title>Create User</title>
-
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                <title>Update User</title>
+                <script>
+                    $(document).ready(() => {
+                        const avatarFile = $("#avatarFile");
+                        avatarFile.change(function (e) {
+                            const imgURL = URL.createObjectURL(e.target.files[0]);
+                            $("#avatarPreview").attr("src", imgURL);
+                            $("#avatarPreview").css({ "display": "block" });
+                        });
+                    });
+                </script>
                 <link href="/css/styles.css" rel="stylesheet" />
+
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
 
@@ -22,17 +33,17 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
-                                <h1 class="mt-4">Create User</h1>
+                                <h1 class="mt-4">Update User</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Create User</li>
+                                    <li class="breadcrumb-item active">Update User</li>
                                 </ol>
                                 <div class="mt-5">
                                     <div class="row">
                                         <div class="mx-auto">
                                             <h3>Update User</h3>
                                             <form:form method="post" modelAttribute="updateUser"
-                                                action="/admin/user/update">
+                                                action="/admin/user/update" enctype="multipart/form-data">
                                                 <div class="mb-3" style="display:none">
                                                     <label for="exampleInputPassword1" class="form-label">ID</label>
                                                     <form:input type="text" class="form-control" path="id" />
@@ -57,7 +68,25 @@
                                                     <label for="exampleInputPassword1" class="form-label">Phone</label>
                                                     <form:input type="text" class="form-control" path="phone" />
                                                 </div>
-
+                                                <div class="row g-3">
+                                                    <div class="mb-3 col">
+                                                        <label class="mb-2">Role: </label>
+                                                        <form:select class="form-select col" path="role.name">
+                                                            <option selected></option>
+                                                            <form:option value="ADMIN">ADMIN</form:option>
+                                                            <form:option value="USER">USER</form:option>
+                                                        </form:select>
+                                                    </div>
+                                                    <div class="mb-3 col">
+                                                        <label for="formFile" class="form-label">Avatar: </label>
+                                                        <input class="form-control" type="file" id="avatarFile"
+                                                            accept=".png,.jpg,.jpeg" name="hoidanitFile" />
+                                                    </div>
+                                                    <div class="col-12 mb-3">
+                                                        <img style="max-height: 250px;display: none" src=""
+                                                            alt="avatar preview" id="avatarPreview" mutiple />
+                                                    </div>
+                                                </div>
                                                 <button type="submit" class="btn btn-warning">Submit</button>
                                             </form:form>
                                         </div>
