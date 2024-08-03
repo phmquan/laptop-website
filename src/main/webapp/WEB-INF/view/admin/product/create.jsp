@@ -33,74 +33,79 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
-                                <h1 class="mt-4">Create User</h1>
+                                <h1 class="mt-4">Create Product</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Create User</li>
+                                    <li class="breadcrumb-item active">Create A Product</li>
                                 </ol>
                                 <div class="container mt-5">
                                     <div class="row">
                                         <div class="col-12 mx-auto">
                                             <h3>Create a User</h3>
-                                            <form:form method="post" action="/admin/user/create"
-                                                modelAttribute="newUser" enctype="multipart/form-data">
-                                                <div class="row g-3">
-                                                    <c:set var="errorEmail">
-                                                        <form:errors path="email" cssClass="invalid-feedback" />
-                                                    </c:set>
-                                                    <div class="col mb-3">
-                                                        <label for="exampleInputEmail1" class="form-label">Email
-                                                            address</label>
-                                                        <form:input type="email"
-                                                            class="form-control ${not empty errorEmail ? 'is-invalid':''}"
-                                                            path="email" />
-                                                        ${errorEmail}
-                                                    </div>
-                                                    <div class="col mb-3">
-                                                        <c:set var="errorPassword">
-                                                            <form:errors path="password" cssClass="invalid-feedback" />
-                                                        </c:set>
-                                                        <label for="exampleInputPassword1"
-                                                            class="form-label">Password</label>
-                                                        <form:input type="password"
-                                                            class="form-control ${not empty errorPassword ? 'is-invalid' : ''}"
-                                                            path="password" />
-                                                        ${errorPassword}
-                                                    </div>
-                                                </div>
+                                            <form:form method="post" action="/admin/product/create"
+                                                modelAttribute="newProduct" enctype="multipart/form-data">
                                                 <div class="row g-3">
                                                     <div class="col mb-3">
-                                                        <c:set var="errorFullName">
-                                                            <form:errors path="fullName" cssClass="invalid-feedback" />
-                                                        </c:set>
-                                                        <label for="exampleInputPassword1" class="form-label">Full
+                                                        <label for="exampleInputEmail1" class="form-label">
                                                             Name</label>
-                                                        <form:input type="text"
-                                                            class="form-control ${not empty errorFullName ? 'is-invalid':''}"
-                                                            path="fullName" />
-                                                        ${errorFullName}
-                                                    </div>
+                                                        <form:input type="email" class="form-control" path="name" />
 
+                                                    </div>
                                                     <div class="col mb-3">
                                                         <label for="exampleInputPassword1"
-                                                            class="form-label">Phone</label>
-                                                        <form:input type="text" class="form-control" path="phone" />
+                                                            class="form-label">Price</label>
+                                                        <form:input type="number" class="form-control" path="price" />
+                                                    </div>
+                                                </div>
+                                                <div class="row g-3">
+                                                    <div class="col mb-3">
+                                                        <label for="exampleInputPassword1" class="form-label">Detail
+                                                            Description</label>
+                                                        <form:input type="text" class="form-control"
+                                                            path="detailDesc" />
+                                                    </div>
+                                                </div>
+                                                <div class="row g-3">
+                                                    <div class="col mb-3">
+                                                        <label for="exampleInputPassword1" class="form-label">Short
+                                                            description</label>
+                                                        <form:input type="text" class="form-control" path="shortDesc" />
+                                                    </div>
+                                                    <div class="col mb-3">
+                                                        <label for="exampleInputPassword1" class="form-label">Quantity:
+                                                        </label>
+                                                        <form:input type="number" class="form-control"
+                                                            path="quantity" />
                                                     </div>
                                                 </div>
 
-                                                <div class="mb-3">
-                                                    <label for="exampleInputPassword1" class="form-label">Adress</label>
-                                                    <form:input type="text" class="form-control" path="address" />
-                                                </div>
                                                 <div class="row g-3">
                                                     <div class="mb-3 col">
-                                                        <label class="mb-2">Role: </label>
-                                                        <form:select class="form-select col" path="role.name">
-                                                            <option selected></option>
-                                                            <form:option value="ADMIN">ADMIN</form:option>
-                                                            <form:option value="USER">USER</form:option>
+                                                        <label class="mb-2">Factory: </label>
+                                                        <form:select class="form-select col" path="factory">
+                                                            <!-- <option selected></option> -->
+                                                            <form:option value="APPLE">Apple (Macbook)</form:option>
+                                                            <form:option value="ASUS">Asus</form:option>
+                                                            <form:option value="LENOVO">Lenovo</form:option>
+                                                            <form:option value="HP">HP</form:option>
+                                                            <form:option value="DELL">Dell</form:option>
                                                         </form:select>
                                                     </div>
+                                                    <div class="mb-3 col">
+                                                        <label class="mb-2">Target: </label>
+                                                        <form:select class="form-select col" path="target">
+                                                            <!-- <option selected></option> -->
+                                                            <form:option value="Gaming">Gaming
+                                                            </form:option>
+                                                            <form:option value="Graphic">Graphic design</form:option>
+                                                            <form:option value="Workstation">Workstation</form:option>
+                                                            <form:option value="SINHVIEN-VANPHONG">Sinh Viên - Văn Phòng
+                                                            </form:option>
+                                                            <form:option value="DOANHNHAN">Doanh Nhân</form:option>
+                                                        </form:select>
+                                                    </div>
+                                                </div>
+                                                <div class="row g-3">
                                                     <div class="mb-3 col">
                                                         <label for="formFile" class="form-label">Avatar: </label>
                                                         <input class="form-control" type="file" id="avatarFile"

@@ -1,16 +1,17 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<html lang="en">
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <!DOCTYPE html>
-        <html lang="en">
 
         <head>
-            <meta charset="utf-8" />
-            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-            <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
-            <meta name="author" content="Hỏi Dân IT" />
-            <title>Order</title>
-
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+            <!-- Latest compiled and minified CSS -->
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+            <!-- Latest compiled JavaScript -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+            <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
             <link href="/css/styles.css" rel="stylesheet" />
             <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         </head>
@@ -22,20 +23,74 @@
                 <div id="layoutSidenav_content">
                     <main>
                         <div class="container-fluid px-4">
-                            <h1 class="mt-4">Dashboard</h1>
+                            <h1 class="mt-4">Manage Product</h1>
                             <ol class="breadcrumb mb-4">
                                 <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                                 <li class="breadcrumb-item active">Product</li>
                             </ol>
-                            <div>Product Table</div>
+                            <div>User Table</div>
+                            <div class="mt-5">
+                                <div class="row">
+                                    <div class="mx-auto">
+                                        <div class="border-bottom border-2 border-primary">
+                                            <div class="d-flex justify-content-between">
+                                                <h2>Table Products</h2>
+                                                <a href="product/create" class="btn btn-primary mb-1">Create Product</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="my-3">
+                                            <table class="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">ID</th>
+                                                        <th scope="col">Name</th>
+                                                        <th scope="col">Price</th>
+                                                        <th scope="col">Factory</th>
+                                                        <th scope="col">Action</th>
+                                                    </tr>
+                                                </thead>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                     </main>
                     <jsp:include page="../layout/footer.jsp" />
                 </div>
             </div>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                 crossorigin="anonymous"></script>
-            <script src="/js/scripts.js"></script>
+            <script src="js/scripts.js"></script>
+
         </body>
 
-        </html>
+</html>
+
+<!--  -->
+<!-- <tbody>
+    <c:forEach var="user" items="${users}">
+        <tr>
+            <td>${user.id}</td>
+            <td>${user.fullName}</td>
+            <td>${user.address}</td>
+            <td>${user.phone}</td>
+            <td>${user.email}</td>
+            <td>${user.role.name}</td>
+            <td>
+
+                <a href="/admin/user/${user.id}"
+                    class="btn btn-success">View</a>
+                <a href="/admin/user/update/${user.id}"
+                    class="btn btn-warning">Update</a>
+                <a href="/admin/user/delete/${user.id}"
+                    class="btn btn-danger">
+                    Delete
+                </a>
+            </td>
+        </tr>
+    </c:forEach>
+</tbody> -->
