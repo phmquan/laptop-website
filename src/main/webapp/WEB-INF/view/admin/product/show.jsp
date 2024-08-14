@@ -50,7 +50,27 @@
                                                         <th scope="col">Action</th>
                                                     </tr>
                                                 </thead>
+                                                <tbody>
+                                                    <c:forEach var="product" items="${products}">
+                                                        <tr>
+                                                            <td>${product.id}</td>
+                                                            <td>${product.name}</td>
+                                                            <td>${product.price}</td>
+                                                            <td>${product.factory}</td>
+                                                            <td>
 
+                                                                <a href="/admin/product/${product.id}"
+                                                                    class="btn btn-success">View</a>
+                                                                <a href="/admin/product/update/${product.id}"
+                                                                    class="btn btn-warning">Update</a>
+                                                                <a href="/admin/product/delete/${product.id}"
+                                                                    class="btn btn-danger">
+                                                                    Delete
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -71,26 +91,3 @@
 </html>
 
 <!--  -->
-<!-- <tbody>
-    <c:forEach var="user" items="${users}">
-        <tr>
-            <td>${user.id}</td>
-            <td>${user.fullName}</td>
-            <td>${user.address}</td>
-            <td>${user.phone}</td>
-            <td>${user.email}</td>
-            <td>${user.role.name}</td>
-            <td>
-
-                <a href="/admin/user/${user.id}"
-                    class="btn btn-success">View</a>
-                <a href="/admin/user/update/${user.id}"
-                    class="btn btn-warning">Update</a>
-                <a href="/admin/user/delete/${user.id}"
-                    class="btn btn-danger">
-                    Delete
-                </a>
-            </td>
-        </tr>
-    </c:forEach>
-</tbody> -->
