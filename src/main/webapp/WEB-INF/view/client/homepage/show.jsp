@@ -109,7 +109,9 @@
                                                                 style="top: 10px; left: 10px;">Laptop</div>
                                                             <div
                                                                 class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                                <h4 class="fs-5 text-center">${product.name}</h4>
+                                                                <h4 class="fs-5 text-center"><a
+                                                                        href="/product/${product.id}">${product.name}</a>
+                                                                </h4>
                                                                 <p class="fs-6 text-center">${product.shortDesc}</p>
                                                                 <div class="text-center">
                                                                     <p class="text-dark fs-5 text-center fw-bold mb-0">
