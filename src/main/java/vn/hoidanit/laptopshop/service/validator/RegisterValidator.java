@@ -16,7 +16,13 @@ public class RegisterValidator implements ConstraintValidator<RegisterChecked, R
     @Override
     public boolean isValid(RegisterDTO user, ConstraintValidatorContext context) {
         boolean valid = true;
-
+        if (user.getFirstName().length()<3) {
+            context.buildConstraintViolationWithTemplate("First name must be at least 3 characters")
+                    .addPropertyNode("firstName")
+                    .addConstraintViolation()
+                    .disableDefaultConstraintViolation();
+            valid = false;
+        }
         // Check if password fields match
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             context.buildConstraintViolationWithTemplate("Confirm passwords must match with password")
