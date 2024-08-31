@@ -42,6 +42,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
             return;
         }
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+        session.setAttribute("fullName", "hoidanit");
     }
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 

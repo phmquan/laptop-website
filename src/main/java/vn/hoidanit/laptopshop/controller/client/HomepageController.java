@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
@@ -31,8 +33,10 @@ public class HomepageController {
     }
 
     @GetMapping("/")
-    public String getHomePage(Model model) {
+    public String getHomePage(Model model, HttpServletRequest request) {
         List<Product> products = this.productService.getAllProduct();
+        HttpSession session = request.getSession(false);
+
         model.addAttribute("products", products);
         return "client/homepage/show";
     }
@@ -65,6 +69,11 @@ public class HomepageController {
 
         return "client/authentication/login";
     }
+
     // @PostMapping("/login")
     // public String handleLogin(@ModelAttribute(""))
+    @GetMapping("/access-denied")
+    public String getAccessDeniedPage() {
+        return "client/authentication/access_denied";
+    }
 }
