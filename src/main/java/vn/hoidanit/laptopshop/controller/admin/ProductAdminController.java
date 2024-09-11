@@ -19,59 +19,65 @@ import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.service.ProductService;
 import vn.hoidanit.laptopshop.service.UploadService;
 
-
-
 @Controller
 public class ProductAdminController {
+
     private final UploadService uploadService;
     private final ProductService productService;
-    public ProductAdminController(UploadService uploadService, ProductService productService){
-        this.uploadService=uploadService;
-        this.productService=productService;
+
+    public ProductAdminController(UploadService uploadService, ProductService productService) {
+        this.uploadService = uploadService;
+        this.productService = productService;
     }
+
     @GetMapping("/admin/product")
-    public String getDashBoard(Model model){
-        List<Product> products=this.productService.getAllProduct();
-        model.addAttribute("products",products);
-        return "/admin/product/show";
+    public String getDashBoard(Model model) {
+        List<Product> products = this.productService.getAllProduct();
+        model.addAttribute("products", products);
+        return "admin/product/show";
     }
+
     @GetMapping("/admin/product/{id}")
-    public String getDetailProduct(Model model,@PathVariable Long id){
-        Product product=this.productService.getProductById(id);
-        model.addAttribute("product",product);
-        return "/admin/product/detail";
+    public String getDetailProduct(Model model, @PathVariable Long id) {
+        Product product = this.productService.getProductById(id);
+        model.addAttribute("product", product);
+        return "admin/product/detail";
     }
+
     @GetMapping("/admin/product/create")
-    public String getCreateProduct(Model model){
-        model.addAttribute("newProduct",new Product());
-        return "/admin/product/create";
+    public String getCreateProduct(Model model) {
+        model.addAttribute("newProduct", new Product());
+        return "admin/product/create";
     }
+
     @PostMapping("/admin/product/create")
-    public String postMethodName(@ModelAttribute("newProduct") @Valid Product product,BindingResult productBindingResult,@RequestParam("hoidanitFile") MultipartFile file) {
+    public String postMethodName(@ModelAttribute("newProduct") @Valid Product product, BindingResult productBindingResult, @RequestParam("hoidanitFile") MultipartFile file) {
         List<FieldError> errors = productBindingResult.getFieldErrors();
-        for (FieldError error : errors ) {
-            System.out.println (error.getField() + " - " + error.getDefaultMessage());
+        for (FieldError error : errors) {
+            System.out.println(error.getField() + " - " + error.getDefaultMessage());
         }
-        if(productBindingResult.hasErrors()){
+        if (productBindingResult.hasErrors()) {
             return "admin/user/create";
         }
-        String productFileName=this.uploadService.handleSaveUploadFile(file, "product");
+        String productFileName = this.uploadService.handleSaveUploadFile(file, "product");
         product.setImage(productFileName);
         this.productService.handleSaveProduct(product);
-        return "redirect:"+"/admin/product/show";
-        
+        return "redirect:" + "/admin/product/show";
+
     }
+
     @RequestMapping("/admin/product/update/{id}")
-    public String updateProductById(Model model, @PathVariable Long id){
-        Product product=this.productService.getProductById(id);
-        model.addAttribute("product",product);
+    public String updateProductById(Model model, @PathVariable Long id) {
+        Product product = this.productService.getProductById(id);
+        model.addAttribute("product", product);
         return "admin/product/update";
     }
+
     @PostMapping("/admin/product/update")
-    public String handleUpdateProduct(Model model,@ModelAttribute("product") Product product, @RequestParam("hoidanitFile") MultipartFile file){
-        Product currentProduct=this.productService.getProductById(product.getId());
-        String productFileName=this.uploadService.handleSaveUploadFile(file, "product");
-        if(product!=null){
+    public String handleUpdateProduct(Model model, @ModelAttribute("product") Product product, @RequestParam("hoidanitFile") MultipartFile file) {
+        Product currentProduct = this.productService.getProductById(product.getId());
+        String productFileName = this.uploadService.handleSaveUploadFile(file, "product");
+        if (product != null) {
             currentProduct.setName(product.getName());
             currentProduct.setPrice(product.getPrice());
             currentProduct.setQuantity(product.getQuantity());
@@ -82,18 +88,20 @@ public class ProductAdminController {
             currentProduct.setImage(productFileName);
             this.productService.handleSaveProduct(currentProduct);
         }
-        return "redirect:"+"/admin/product";
+        return "redirect:" + "admin/product";
     }
+
     @GetMapping("/admin/product/delete/{id}")
-    public String deleteProductById(Model model,@PathVariable("id") Long id){
-        Product product=this.productService.getProductById(id);
-        model.addAttribute("product",product);
-        model.addAttribute("id",id);
+    public String deleteProductById(Model model, @PathVariable("id") Long id) {
+        Product product = this.productService.getProductById(id);
+        model.addAttribute("product", product);
+        model.addAttribute("id", id);
         return "admin/product/delete";
     }
+
     @PostMapping("/admin/product/delete")
-    public String handleProductDelete(Model model,@ModelAttribute("product") Product product){
+    public String handleProductDelete(Model model, @ModelAttribute("product") Product product) {
         this.productService.handleDeleteProduct(product.getId());
-        return "redirect:"+"/admin/product";
+        return "redirect:" + "admin/product";
     }
 }

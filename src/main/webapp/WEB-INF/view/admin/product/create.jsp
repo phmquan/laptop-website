@@ -49,7 +49,6 @@
                                                         <label for="exampleInputEmail1" class="form-label">
                                                             Name</label>
                                                         <form:input type="name" class="form-control" path="name" />
-
                                                     </div>
                                                     <div class="col mb-3">
                                                         <label for="exampleInputPassword1"

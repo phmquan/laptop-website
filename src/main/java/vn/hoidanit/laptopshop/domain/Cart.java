@@ -7,45 +7,36 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 
 @Entity
 @Table(name = "carts")
-
 public class Cart {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @OneToOne
-    @JoinColumn(name = "users", referencedColumnName = "id")
-    private Long userId;
-    private List<CartDetail.id> cartDetailId;
+    private long id;
+
+    @Min(value = 0)
     private int sum;
 
-    public Long getId() {
+    // user_id
+    @OneToOne()
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    // cart_detail_id
+    @OneToMany(mappedBy = "cart")
+    List<CartDetail> cartDetails;
+
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public List<CartDetail.id> getCartDetailId() {
-        return cartDetailId;
-    }
-
-    public void setCartDetailId(List<CartDetail.id> cartDetailId) {
-        this.cartDetailId = cartDetailId;
     }
 
     public int getSum() {
@@ -54,6 +45,22 @@ public class Cart {
 
     public void setSum(int sum) {
         this.sum = sum;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<CartDetail> getCartDetails() {
+        return cartDetails;
+    }
+
+    public void setCartDetails(List<CartDetail> cartDetails) {
+        this.cartDetails = cartDetails;
     }
 
 }

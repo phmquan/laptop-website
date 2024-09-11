@@ -33,16 +33,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping("/")
-    public String getHomepage(Model model, User user) {
-        List<User> arrUser = this.userService.GetAllUserByEmail("20520713@gm.uit.edu.vn");
-        System.out.println(arrUser);
-        String test = this.userService.handleHello();
-        model.addAttribute("eric", "test");
-        model.addAttribute("hoidanit", "from controller with model");
-        return "hello";
-    }
-
     @RequestMapping("/admin/user")
     public String getUser(Model model) {
         List<User> users = this.userService.GetAllUser();
@@ -77,7 +67,7 @@ public class UserController {
             currentUser.setAvatar(avatarFileName);
             this.userService.handleSaveUser(currentUser);
         }
-        return "redirect:" + "/admin/user";
+        return "redirect:" + "admin/user";
     }
 
     @GetMapping("/admin/user/create")
@@ -101,7 +91,7 @@ public class UserController {
         user.setPassword(hashPassword);
         user.setRole(this.userService.getRoleByName(user.getRole().getName()));
         this.userService.handleSaveUser(user);
-        return "redirect:" + "/admin/user";
+        return "redirect:" + "admin/user";
     }
 
     @GetMapping("/admin/user/delete/{id}")
@@ -114,6 +104,6 @@ public class UserController {
     @PostMapping("/admin/user/delete")
     public String handleUserDelete(Model model, @ModelAttribute("user") User user) {
         this.userService.handleDeleteUserById(user.getId());
-        return "redirect:" + "/admin/user";
+        return "redirect:" + "admin/user";
     }
 }

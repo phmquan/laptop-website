@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class OrderController {
     @GetMapping("/admin/order")
     public String getDashBoard(){
-        return "/admin/order/show";
+        return "admin/order/show";
     }
 }
