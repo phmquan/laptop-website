@@ -63,16 +63,21 @@
                                         <tr>
                                             <th scope="row">
                                                 <div class="d-flex align-items-center">
-                                                    <img src="images/product/1711078092373-asus-01.png"
+                                                    <img src="images/product/${cartDetail.value.image}"
                                                         class="img-fluid me-5 rounded-circle"
                                                         style="width: 80px; height: 80px;" alt="">
                                                 </div>
                                             </th>
                                             <td>
-                                                <p class="mb-0 mt-4">Big Banana</p>
+                                                <a href="product/${cartDetail.value.id}">
+                                                    <p class="mb-0 mt-4">${cartDetail.value.name}</p>
+                                                </a>
+
                                             </td>
                                             <td>
-                                                <p class="mb-0 mt-4">${cartDetail.price}</p>
+                                                <p class="mb-0 mt-4">
+                                                    <fmt:formatNumber type="number" value="${cartDetail.key.price} " />đ
+                                                </p>
                                             </td>
                                             <td>
                                                 <div class="input-group quantity mt-4" style="width: 100px;">
@@ -84,7 +89,7 @@
                                                     </div>
                                                     <input type="text"
                                                         class="form-control form-control-sm text-center border-0"
-                                                        value="${cartDetail.quantity}">
+                                                        value="${cartDetail.key.quantity}">
                                                     <div class="input-group-btn">
                                                         <button
                                                             class="btn btn-sm btn-plus rounded-circle bg-light border">
@@ -94,7 +99,11 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <p class="mb-0 mt-4">${cartDetail.price} đ</p>
+                                                <p class="mb-0 mt-4">
+                                                    <fmt:formatNumber type="number"
+                                                        value="${cartDetail.key.price*cartDetail.key.quantity} " />đ
+                                                </p>
+
                                             </td>
                                             <td>
                                                 <button class="btn btn-md rounded-circle bg-light border mt-4">
@@ -118,19 +127,17 @@
                                         <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
                                         <div class="d-flex justify-content-between mb-4">
                                             <h5 class="mb-0 me-4">Subtotal:</h5>
-                                            <p class="mb-0">$96.00</p>
+                                            <p class="mb-0">
+
+                                            </p>
                                         </div>
-                                        <div class="d-flex justify-content-between">
-                                            <h5 class="mb-0 me-4">Shipping</h5>
-                                            <div class="">
-                                                <p class="mb-0">Flat rate: $3.00</p>
-                                            </div>
-                                        </div>
-                                        <p class="mb-0 text-end">Shipping to Ukraine.</p>
+
                                     </div>
                                     <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                                         <h5 class="mb-0 ps-4 me-4">Total</h5>
-                                        <p class="mb-0 pe-4">$99.00</p>
+                                        <p class="mb-0 pe-4">
+
+                                        </p>
                                     </div>
                                     <button
                                         class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"

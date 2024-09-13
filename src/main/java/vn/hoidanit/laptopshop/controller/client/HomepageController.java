@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.domain.dto.RegisterDTO;
@@ -42,9 +41,9 @@ public class HomepageController {
         HttpSession session = request.getSession(false);
         session.getAttribute("fullName");
 
-        User user = this.userService.getUserByEmail((String) session.getAttribute("email"));
-        Cart cart = this.cartService.getCartByUser(user);
-        model.addAttribute("cart", cart);
+        // User user = this.userService.getUserByEmail((String) session.getAttribute("email"));
+        // Cart cart = this.cartService.getCartByUser(user);
+        // model.addAttribute("cart", cart);
         model.addAttribute("products", products);
         return "client/homepage/show";
     }

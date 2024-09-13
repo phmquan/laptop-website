@@ -1,6 +1,8 @@
 package vn.hoidanit.laptopshop.controller.client;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.CartDetail;
+import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.service.CartService;
 import vn.hoidanit.laptopshop.service.ProductService;
@@ -35,9 +38,14 @@ public class CartController {
         HttpSession session = request.getSession(false);
         User user = this.userService.getUserByEmail((String) session.getAttribute("email"));
         Cart cart = this.cartService.getCartByUser(user);
+        Map<CartDetail, Product> cartDetailsWithProductName = new HashMap<>();
 
-        List<CartDetail> cartDetail = this.cartService.getCartDetail(cart);
-        model.addAttribute("cartDetail", cartDetail);
+        List<CartDetail> cartDetails = this.cartService.getCartDetail(cart);
+        for (CartDetail cartDetail : cartDetails) {
+            Product product = cartDetail.getProduct();
+            cartDetailsWithProductName.put(cartDetail, product);
+        }
+        model.addAttribute("cartDetail", cartDetailsWithProductName);
         model.addAttribute("cart", cart);
 
         return "client/cart/detail";
@@ -48,7 +56,7 @@ public class CartController {
         HttpSession session = request.getSession(false);
         Long productId = id;
         String email = (String) session.getAttribute("email");
-        this.cartService.handleAddProductToCard(email, productId);
+        this.cartService.handleAddProductToCard(email, productId, session);
         return "redirect:/";
     }
 }

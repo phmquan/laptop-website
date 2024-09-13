@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpSession;
 import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.CartDetail;
 import vn.hoidanit.laptopshop.domain.Product;
@@ -26,7 +27,7 @@ public class CartService {
         this.userService = userService;
     }
 
-    public void handleAddProductToCard(String email, Long productId) {
+    public void handleAddProductToCard(String email, Long productId, HttpSession session) {
         User user = this.userService.getUserByEmail(email);
         if (user != null) {
             Cart cart = this.cartRepository.findByUser(user);
@@ -49,7 +50,10 @@ public class CartService {
                     cartDetail.setPrice(product.getPrice());
                     cartDetail.setCart(cart);
                     this.cartDetailRepository.save(cartDetail);
+
+                    int sum = cart.getSum() + 1;
                     cart.setSum(cart.getSum() + 1);
+                    session.setAttribute("sum", sum);
                 }
 
             }
