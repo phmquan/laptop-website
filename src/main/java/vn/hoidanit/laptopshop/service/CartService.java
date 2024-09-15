@@ -1,6 +1,7 @@
 package vn.hoidanit.laptopshop.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -66,5 +67,26 @@ public class CartService {
 
     public List<CartDetail> getCartDetail(Cart cart) {
         return this.cartDetailRepository.findAllCartDetailByCart(cart);
+    }
+
+    public Optional<CartDetail> getCartDetailById(Long id) {
+        Optional<CartDetail> currentCart = this.cartDetailRepository.findById(id);
+        if (currentCart.isPresent()) {
+            return currentCart;
+        } else {
+            return null;
+        }
+    }
+
+    public void saveCart(Cart cart) {
+        this.cartRepository.save(cart);
+    }
+
+    public void deleteCartDetail(Long id) {
+        this.cartDetailRepository.deleteById(id);
+    }
+
+    public void deleteCart(Cart cart) {
+        this.cartRepository.delete(cart);
     }
 }
